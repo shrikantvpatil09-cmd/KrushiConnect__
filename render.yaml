@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: krushiconnect
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run typecheck && npm run lint && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: PG_POOL_MAX
+        value: "5"
